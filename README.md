@@ -75,7 +75,7 @@ Before you begin, ensure you have the following installed:
 ### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/quiz-management-system.git
+git clone https://github.com/shandude786/quiz-management-system.git
 cd quiz-management-system
 ```
 
@@ -632,7 +632,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## 📧 Support
 
-For support, email your-email@example.com or open an issue in the repository.
+For support, email shantilal173@gmail.com or open an issue in the repository.
 
 ---
 
