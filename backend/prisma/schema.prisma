@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quizzes       Quiz[]
+  quizAttempts  QuizAttempt[]
+
+  @@map("users")
+}
+
+model Quiz {
+  id              String   @id @default(uuid())
+  title           String
+  category        String
+  timeLimit       Int
+  totalQuestions  Int
+  createdBy       String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  creator         User          @relation(fields: [createdBy], references: [id])
+  questions       Question[]
+  quizAttempts    QuizAttempt[]
+
+  @@map("quizzes")
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  quizId        String
+  questionText  String
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+  correctAnswer Answer
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  quiz          Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@index([quizId])
+  @@map("questions")
+}
+
+model QuizAttempt {
+  id              String   @id @default(uuid())
+  userId          String
+  quizId          String
+  score           Int
+  totalQuestions  Int
+  answers         Json
+  timeTaken       Int?
+  completedAt     DateTime @default(now())
+
+  user            User     @relation(fields: [userId], references: [id])
+  quiz            Quiz     @relation(fields: [quizId], references: [id])
+
+  @@index([userId])
+  @@index([quizId])
+  @@map("quiz_attempts")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Answer {
+  A
+  B
+  C
+  D
+}
