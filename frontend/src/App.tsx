@@ -15,7 +15,7 @@ import { CircularProgress, Box } from '@mui/material';
 
 function App() {
   const dispatch = useAppDispatch();
-  const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
+  const {  loading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getCurrentUser());
