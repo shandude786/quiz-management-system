@@ -18,7 +18,7 @@ const theme = createTheme({
     },
   },
 });
-
+console.log("test")
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
